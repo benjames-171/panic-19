@@ -1,0 +1,11 @@
+local data = require "main.data"
+
+function init(self)
+end
+
+local function panel(message)
+end
+
+function on_message(self, message_id, message, sender)
+end
+
