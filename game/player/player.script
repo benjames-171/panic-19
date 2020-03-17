@@ -67,12 +67,22 @@ local function dust(self)
 	end
 end
 
+local function item(self)
+	local pos = go.get_position()
+	pos = data.world2tile(pos)
+	local t = tilemap.get_tile("/level#tilemap", "item", pos.x, pos.y)
+	if t == 4 then
+		tilemap.set_tile("/level#tilemap", "item", pos.x, pos.y, 0)
+	end
+end
+
 function update(self, dt)
 	if data.state == data.STATE_PLAYING then
 		move(self)
 		drag(self)
 		anim(self)
 		dust(self)
+		item(self)
 	end
 end
 
