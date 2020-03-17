@@ -9,6 +9,9 @@ local function parse(self)
 			if t == 3 then
 				tilemap.set_tile("#tilemap", "world", x, y, 0)
 				msg.post("common/player", "position", {pos = data.tile2world(vmath.vector3(x, y, 0.5))})
+			elseif t == 5 then
+				tilemap.set_tile("#tilemap", "world", x, y, 0)
+				factory.create("#enemy_factory", data.tile2world(vmath.vector3(x,y,0.3)))
 			end
 		end
 	end

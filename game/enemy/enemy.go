@@ -1,24 +1,9 @@
 components {
-  id: "player"
-  component: "/game/player/player.script"
+  id: "enemy"
+  component: "/game/enemy/enemy.script"
   position {
     x: 0.0
     y: 0.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-}
-components {
-  id: "dust"
-  component: "/game/player/dust.particlefx"
-  position {
-    x: 0.0
-    y: -8.0
     z: 0.0
   }
   rotation {
@@ -32,7 +17,7 @@ embedded_components {
   id: "sprite"
   type: "sprite"
   data: "tile_set: \"/game/core/game.tilesource\"\n"
-  "default_animation: \"static\"\n"
+  "default_animation: \"enemy\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "blend_mode: BLEND_MODE_ALPHA\n"
   ""
@@ -56,14 +41,14 @@ embedded_components {
   "mass: 0.0\n"
   "friction: 0.1\n"
   "restitution: 0.5\n"
-  "group: \"player\"\n"
-  "mask: \"world\"\n"
+  "group: \"enemy\"\n"
+  "mask: \"player\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_SPHERE\n"
   "    position {\n"
   "      x: 0.0\n"
-  "      y: -2.0\n"
+  "      y: -5.0\n"
   "      z: 0.0\n"
   "    }\n"
   "    rotation {\n"
