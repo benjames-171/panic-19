@@ -16,17 +16,15 @@ function delete(self, url)
 end
 
 local function deleteall(self)
-	if next(self.url) then
-		for k, v in ipairs(self.url) do
-			go.delete(v)
-		end
+	for k, v in ipairs(self.url) do
+		go.delete(v)
 	end
 
 	self.url = {}
 end
 
 function on_message(self, message_id, message, sender)
-	if message_id == hash("add") then add(self, message.pos)
+	if message_id == hash("add") then add(self, message.url)
 	elseif message_id == hash("delete") then delete(self, message.url)
 	elseif message_id == hash("deleteall") then deleteall(self)
 	end

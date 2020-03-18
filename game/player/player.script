@@ -117,7 +117,8 @@ local function tryup(self)
 		pos.y = pos.y + 1
 	until t > 0
 
-	if t > 1 then
+	if t >= 61 then
+	elseif t > 1 then
 		pos = data.tile2world(pos)
 		self.teleport = true
 		go.animate(".", "position.y", go.PLAYBACK_ONCE_FORWARD, pos.y, go.EASING_OUTQUAD, HOP_SPEED, 0, landed)
@@ -138,7 +139,8 @@ local function trydown(self)
 		t = tilemap.get_tile("/level#tilemap", "world", pos.x, pos.y)
 	until t > 0
 
-	if t > 1 then
+	if t >= 61 then
+	elseif t > 1 then
 		pos.y = pos.y + 1
 		pos = data.tile2world(pos)
 		self.teleport = true
@@ -161,7 +163,8 @@ local function tryleft(self)
 		t = tilemap.get_tile("/level#tilemap", "world", pos.x, pos.y)
 	until t > 0
 
-	if t > 1 then
+	if t >= 61 then
+	elseif t > 1 then
 		pos.y = pos.y + 1
 		pos = data.tile2world(pos)
 		self.teleport = true
@@ -183,7 +186,8 @@ local function tryright(self)
 		t = tilemap.get_tile("/level#tilemap", "world", pos.x, pos.y)
 	until t > 0
 	
-	if t > 1 then
+	if t >= 61 then
+	elseif t > 1 then
 		pos.y = pos.y + 1
 		pos = data.tile2world(pos)
 		self.teleport = true
