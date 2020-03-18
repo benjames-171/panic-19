@@ -78,6 +78,12 @@ local function item(self)
 	end
 end
 
+local function cond(self)
+	if data.gems == data.gemstotal then
+		msg.post("view#clear", "show")
+	end
+end
+
 function update(self, dt)
 	if data.state == data.STATE_PLAYING then
 		move(self)
@@ -85,6 +91,7 @@ function update(self, dt)
 		anim(self)
 		dust(self)
 		item(self)
+		cond(self)
 	end
 end
 
@@ -245,7 +252,10 @@ local function input_levelclear(self, action_id, action)
 			data.level = 1
 			quit2menu(self)
 		else
-			msg.post("game:/loader", "new_level")
+			msg.post("/level#enemies", "deleteall")
+			msg.post("/level", "new_level")
+			msg.post("view#clear", "hide")
+			data.state = data.STATE_PLAYING
 		end
 	end
 end

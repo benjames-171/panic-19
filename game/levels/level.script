@@ -1,12 +1,28 @@
 local data = require "main.data"
 
-local function parse(self)
-	sx, sy, w, h = tilemap.get_bounds("#tilemap")
+local function populate(self)
+	local sx = 1 + ((data.level-1)*18)
 
+	for y = 12, 20 do
+		for x = sx, sx+16 do
+			local w = tilemap.get_tile("#tilemap", "world", x, y)
+			local i = tilemap.get_tile("#tilemap", "item", x, y)
+
+			local dx = x-sx+1
+			local dy = y-11
+
+			tilemap.set_tile("#tilemap", "world", dx, dy, w)
+			tilemap.set_tile("#tilemap", "item", dx, dy, i)
+		end
+	end
+end
+
+local function parse(self)
+	data.gems = 0
 	data.gemstotal = 0
 	
-	for y = sy, h+sy-1 do
-		for x = sx, w+sx-1 do
+	for y = 1, 9 do
+		for x = 1, 16 do
 			local t = tilemap.get_tile("#tilemap", "world", x, y)
 			local i = tilemap.get_tile("#tilemap", "item", x, y)
 			if t == 3 then
@@ -16,13 +32,14 @@ local function parse(self)
 				data.gemstotal = data.gemstotal + 1
 			elseif t == 5 then
 				tilemap.set_tile("#tilemap", "world", x, y, 0)
-				factory.create("#enemy_factory", data.tile2world(vmath.vector3(x,y,0.3)))
+				msg.post("#enemies", "spawn", {pos = data.tile2world(vmath.vector3(x,y,0.3))})
 			end
 		end
 	end
 end
 
 function init(self)
+	populate(self)
 	parse(self)
 end
 
@@ -32,6 +49,12 @@ function update(self, dt)
 	end
 end
 
+function on_message(self, message_id, message, sender)
+	if message_id == hash("new_level") then
+		populate(self)
+		parse(self)
+	end
+end
 
 
 

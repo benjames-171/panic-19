@@ -1,0 +1,33 @@
+function init(self)
+	self.url = {}
+end
+
+local function spawn(self, pos)
+	pos.z = 0.2
+	local url = factory.create("#enemy_factory", pos, nil, {})
+	table.insert(self.url, url)
+end
+
+function delete(self, url)
+	for k, v in ipairs(self.url) do
+		if v == url then
+			table.remove(self.url, k)
+			return
+		end
+	end
+end
+
+local function deleteall(self)
+	for k, v in ipairs(self.url) do
+		go.delete(v)
+	end
+
+	self.url = {}
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("spawn") then spawn(self, message.pos)
+	elseif message_id == hash("delete") then delete(self, message.url)
+	elseif message_id == hash("deleteall") then deleteall(self)
+	end
+end

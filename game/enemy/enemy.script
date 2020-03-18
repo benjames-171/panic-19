@@ -25,7 +25,8 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == hash("contact_point_response") then
 		msg.post("/effect", "explode", {pos = go.get_position()})
+		msg.post("/level#enemies", "delete", {url = msg.url()})
 		go.delete()
-	end
+	end	
 end
 
