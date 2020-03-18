@@ -5,9 +5,18 @@ local function disablenode (self, node)
 end
 
 local function hide(self)
-	gui.animate(gui.get_node("container"), gui.PROP_COLOR, vmath.vector4(1, 1, 1, 0), gui.EASING_LINEAR, 0.5, 0.1, disablenode)
+	gui.animate(self.node, gui.PROP_COLOR, vmath.vector4(1, 1, 1, 0), gui.EASING_LINEAR, 0.25, 0.1, disablenode)
 end
 
 function init(self)
+	self.node = gui.get_node("container")
 	hide(self)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("reset") then
+		gui.set_enabled(self.node, true)
+		gui.set_color(self.node, vmath.vector4(1,1,1,1))
+		hide(self)
+	end
 end

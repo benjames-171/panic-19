@@ -81,6 +81,8 @@ end
 local function cond(self)
 	if data.gems == data.gemstotal then
 		msg.post("view#clear", "show")
+		msg.post("#sprite", "play_animation", {id = hash("static")})
+		particlefx.stop("#dust")
 	end
 end
 
@@ -255,6 +257,7 @@ local function input_levelclear(self, action_id, action)
 			msg.post("/level#enemies", "deleteall")
 			msg.post("/level", "new_level")
 			msg.post("view#clear", "hide")
+			msg.post("view#shutter", "reset")
 			data.state = data.STATE_PLAYING
 		end
 	end

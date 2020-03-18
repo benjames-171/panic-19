@@ -39,10 +39,6 @@ key_trigger {
   action: "right"
 }
 key_trigger {
-  input: KEY_X
+  input: KEY_ENTER
   action: "action"
-}
-key_trigger {
-  input: KEY_R
-  action: "reload"
 }

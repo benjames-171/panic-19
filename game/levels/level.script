@@ -32,7 +32,7 @@ local function parse(self)
 				data.gemstotal = data.gemstotal + 1
 			elseif t == 5 then
 				tilemap.set_tile("#tilemap", "world", x, y, 0)
-				msg.post("#enemies", "spawn", {pos = data.tile2world(vmath.vector3(x,y,0.3))})
+				factory.create("#enemy_factory", data.tile2world(vmath.vector3(x,y,0.3)))
 			end
 		end
 	end
