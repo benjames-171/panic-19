@@ -4,10 +4,12 @@ local DRAG = 0.5
 local ACCEL = 0.75
 local SPEED_MAX = 2
 local HOP_SPEED = 0.2
+local INVUL = 60
 
 function init(self)
 	self.dust = false
 	self.teleport = false
+	self.invul = INVUL
 	self.move = vmath.vector3()
 	self.dir = vmath.vector3()
 	msg.post(".", "acquire_input_focus")
@@ -86,6 +88,19 @@ local function cond(self)
 	end
 end
 
+local function flash(self)
+	if self.invul > 0 then
+		self.invul = self.invul - 1
+		if self.invul == 0 then
+			--
+		elseif self.invul % 6 < 3 then
+			msg.post("#sprite", "enable")
+		else
+			msg.post("#sprite", "disable")
+		end
+	end
+end
+
 function update(self, dt)
 	if data.state == data.STATE_PLAYING then
 		move(self)
@@ -94,12 +109,16 @@ function update(self, dt)
 		dust(self)
 		item(self)
 		cond(self)
+		flash(self)
 	end
 end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("position") then
 		go.set_position(message.pos)
+	elseif message_id == hash("contact_point_response") then
+		if self.invul == 0 then data.hp = data.hp - 1 end
+		self.invul = INVUL
 	end
 end
 
@@ -197,7 +216,6 @@ local function tryright(self)
 		sound.play("main:/sound#teleport")
 	end
 end
-
 
 local function left(self, pressed)
 	self.move.x = self.move.x - ACCEL
