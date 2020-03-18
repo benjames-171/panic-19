@@ -20,6 +20,9 @@ M.GUI_DROP = 50
 
 M.level = 1
 M.maxlevel = 1
+M.hp = 0
+M.gems = 0
+M.gemstotal = 0
 
 M.offset = vmath.vector3()
 M.scrollpos = vmath.vector3()

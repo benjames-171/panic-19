@@ -74,6 +74,7 @@ local function item(self)
 	if t == 4 then
 		tilemap.set_tile("/level#tilemap", "item", pos.x, pos.y, 0)
 		sound.play("main:/sound#gem")
+		data.gems = data.gems + 1
 	end
 end
 

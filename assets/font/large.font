@@ -1,6 +1,6 @@
-font: "/builtins/fonts/vera_mo_bd.ttf"
+font: "/assets/font/GrapeSoda.ttf"
 material: "/builtins/fonts/font.material"
-size: 48
+size: 64
 antialias: 0
 alpha: 1.0
 outline_alpha: 0.0

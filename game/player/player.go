@@ -38,7 +38,7 @@ embedded_components {
   ""
   position {
     x: 0.0
-    y: 0.0
+    y: -1.0
     z: 0.0
   }
   rotation {
@@ -63,7 +63,7 @@ embedded_components {
   "    shape_type: TYPE_SPHERE\n"
   "    position {\n"
   "      x: 0.0\n"
-  "      y: -2.0\n"
+  "      y: -4.0\n"
   "      z: 0.0\n"
   "    }\n"
   "    rotation {\n"
@@ -75,7 +75,7 @@ embedded_components {
   "    index: 0\n"
   "    count: 1\n"
   "  }\n"
-  "  data: 6.0\n"
+  "  data: 3.0\n"
   "}\n"
   "linear_damping: 0.0\n"
   "angular_damping: 0.0\n"

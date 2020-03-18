@@ -1,11 +1,18 @@
 local data = require "main.data"
 
-function init(self)
-end
+function update(self, dt)
+	gui.set_text(gui.get_node("gems"), string.format("%02d/%02d", data.gems, data.gemstotal))
+	
+	for h = 1, data.hp do
+		local node = gui.get_node(string.format("heart%d", h))
+		--gui.set_texture(node, "game")
+		gui.play_flipbook(node, "heart")
+	end
 
-local function panel(message)
-end
-
-function on_message(self, message_id, message, sender)
+	for h = data.hp+1, 5 do
+		local node = gui.get_node(string.format("heart%d", h))
+		--gui.set_texture(node, "game")
+		gui.play_flipbook(node, "heart-empty")
+	end
 end
 
