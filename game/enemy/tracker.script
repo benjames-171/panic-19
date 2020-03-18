@@ -1,0 +1,45 @@
+local data = require "main.data"
+
+local SPEED = 1
+
+function init(self)
+	self.move = vmath.vector3()
+	local pos = go.get_position()
+	go.set_position(pos - vmath.vector3(8,8,0))
+	msg.post("/level#enemies", "add", {url = msg.url()})
+end
+
+local function track(self)
+	local pos = go.get_position()
+	if pos.x % data.TILE_SIZE == 0 and pos.y % data.TILE_SIZE == 0 then
+		pos = data.world2tile(pos)
+		t = tilemap.get_tile("/level#tilemap", "track", pos.x, pos.y)
+		if t == 7 then self.move = vmath.vector3(0,SPEED,0)
+		elseif t == 8 then self.move = vmath.vector3(0,-SPEED,0)
+		elseif t == 9 then self.move = vmath.vector3(-SPEED,0,0)
+		elseif t == 10 then self.move = vmath.vector3(SPEED,0,0)
+		end
+	end
+end
+
+local function move(self)
+	local pos = go.get_position()
+	go.set_position(pos + self.move)
+end
+
+function update(self, dt)
+	if data.state == data.STATE_PLAYING then
+		track(self)
+		move(self)
+	end
+
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("contact_point_response") then
+		msg.post("/effect", "explode", {pos = go.get_position()})
+		msg.post("/level#enemies", "delete", {url = msg.url()})
+		go.delete()
+	end	
+end
+
