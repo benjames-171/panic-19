@@ -233,7 +233,7 @@ nodes {
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
   text: "BEN JAMES\n"
-  "COMPOSER\n"
+  "ZAC RAY\n"
   "FONTENDDEV"
   font: "main"
   id: "right"

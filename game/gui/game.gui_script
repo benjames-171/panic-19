@@ -1,5 +1,9 @@
 local data = require "main.data"
 
+function init(self)
+	self.san = 0
+end
+
 function update(self, dt)
 	gui.set_text(gui.get_node("gems"), string.format("%02d/%02d", data.gems, data.gemstotal))
 	
@@ -14,5 +18,19 @@ function update(self, dt)
 		--gui.set_texture(node, "game")
 		gui.play_flipbook(node, "heart-empty")
 	end
+
+	if self.san > 0 then
+		gui.set_enabled(gui.get_node("sanitiser"), true)
+		gui.set_enabled(gui.get_node("san-icon"), true)
+		gui.set_scale(gui.get_node("sanitiser"), vmath.vector3(self.san, 1, 0))
+	else
+		gui.set_enabled(gui.get_node("sanitiser"), false)
+		gui.set_enabled(gui.get_node("san-icon"), false)
+	end
 end
 
+function on_message(self, message_id, message, sender)
+	if message_id == hash("san") then
+		self.san = message.val
+	end
+end

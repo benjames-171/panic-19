@@ -5,14 +5,17 @@ local ACCEL = 0.75
 local SPEED_MAX = 2
 local HOP_SPEED = 0.1
 local INVUL = 60
+local ETHER_TIME = 300
 
 function init(self)
 	self.dust = false
 	self.teleport = false
 	self.invul = INVUL
+	self.ether = 0
 	self.move = vmath.vector3()
 	self.dir = vmath.vector3()
 	msg.post(".", "acquire_input_focus")
+	sound.play("main:/sound#music")
 end
 
 local function quit2menu(self)
@@ -73,9 +76,14 @@ local function item(self)
 	local pos = go.get_position()
 	pos = data.world2tile(pos)
 	local t = tilemap.get_tile("/level#tilemap", "item", pos.x, pos.y)
-	if t == 4 then
+	if t == 2 then self.ether = ETHER_TIME
 		tilemap.set_tile("/level#tilemap", "item", pos.x, pos.y, 0)
 		sound.play("main:/sound#gem")
+		sprite.set_constant("#sprite", "tint", vmath.vector4(1,1,1,0.5))
+		msg.post("#co", "disable")
+	elseif t == 4 then
+		tilemap.set_tile("/level#tilemap", "item", pos.x, pos.y, 0)
+		sound.play("main:/sound#pickup")
 		data.gems = data.gems + 1
 	elseif t == 12 and data.hp < 5 then
 		tilemap.set_tile("/level#tilemap", "item", pos.x, pos.y, 0)
@@ -106,6 +114,15 @@ local function flash(self)
 		else
 			msg.post("#sprite", "disable")
 		end
+	end
+
+	if self.ether > 0 then
+		self.ether = self.ether - 1
+		if self.ether == 0 then
+			sprite.set_constant("#sprite", "tint", vmath.vector4(1,1,1,1))
+			msg.post("#co", "enable")
+		end
+		msg.post("view#game", "san", {val = self.ether / ETHER_TIME})
 	end
 end
 
@@ -285,6 +302,7 @@ local function input_levelclear(self, action_id, action)
 			msg.post("/level", "new_level")
 			msg.post("view#clear", "hide")
 			msg.post("view#shutter", "reset")
+			self.ether = 1
 			data.state = data.STATE_PLAYING
 		end
 	end
