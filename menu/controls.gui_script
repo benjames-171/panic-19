@@ -35,6 +35,7 @@ function on_input(self, action_id, action)
 		if action_id == hash("action") and action.pressed then
 			hide(self)
 			msg.post("#menu", "show", {})
+			sound.play("main:/sound#pickup")
 		end
 	end
 end
