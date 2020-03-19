@@ -289,8 +289,8 @@ nodes {
 }
 nodes {
   position {
-    x: 910.0
-    y: 544.0
+    x: 921.0
+    y: 547.0
     z: 0.0
     w: 1.0
   }
@@ -351,8 +351,8 @@ nodes {
 }
 nodes {
   position {
-    x: 80.0
-    y: 12.0
+    x: 78.0
+    y: -4.0
     z: 0.0
     w: 1.0
   }
@@ -382,7 +382,7 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "game/gem"
+  texture: "game/gui-icon"
   id: "gem-icon"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE

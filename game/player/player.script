@@ -77,6 +77,10 @@ local function item(self)
 		tilemap.set_tile("/level#tilemap", "item", pos.x, pos.y, 0)
 		sound.play("main:/sound#gem")
 		data.gems = data.gems + 1
+	elseif t == 12 and data.hp < 5 then
+		tilemap.set_tile("/level#tilemap", "item", pos.x, pos.y, 0)
+		sound.play("main:/sound#heart")
+		data.hp = data.hp + 1
 	end
 end
 
@@ -84,6 +88,10 @@ local function cond(self)
 	if data.gems == data.gemstotal then
 		msg.post("view#clear", "show")
 		msg.post("#sprite", "play_animation", {id = hash("static")})
+		particlefx.stop("#dust")
+	elseif data.hp <= 0 then
+		msg.post("view#gameover", "show")
+		msg.post("#sprite", "disable")
 		particlefx.stop("#dust")
 	end
 end
@@ -261,10 +269,7 @@ local function input_playing(self, action_id, action)
 	elseif action_id == hash("action") and action.pressed then
 		-- action code
 	elseif action_id == hash("exit") and action.pressed then
-		msg.post("main:/sound", "stop_sound")
-		msg.post("main:/handler", "show_menu")
-	elseif action_id == hash("reload") and action.pressed then
-		msg.post("game:/loader", "reload_level")
+		quit2menu(self)
 	end
 end
 
