@@ -10,7 +10,7 @@ function init(self)
 	msg.post(".", "acquire_input_focus")
 	self.node = gui.get_node("container")
 	if data.maxlevel > 1 then gui.set_text(gui.get_node("1"), string.format("CONTINUE (%d)", data.maxlevel)) end
-	gui.set_position(self.node, vmath.vector3(data.SCR_W/2, (data.SCR_H/2) - data.GUI_DROP, 0))
+	gui.set_position(self.node, vmath.vector3(data.SCR_W/2, (data.SCR_H/2), 0))
 	data.state = data.STATE_MENU
 end
 
