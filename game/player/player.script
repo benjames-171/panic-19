@@ -303,6 +303,7 @@ local function input_levelclear(self, action_id, action)
 			msg.post("view#clear", "hide")
 			msg.post("view#shutter", "reset")
 			self.ether = 1
+			self.invul = INVUL
 			data.state = data.STATE_PLAYING
 		end
 	end

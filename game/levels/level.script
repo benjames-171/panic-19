@@ -45,15 +45,23 @@ local function parse(self)
 	end
 end
 
+local function strip(self)
+	sx, sy, w, h = tilemap.get_bounds("#tilemap")
+	
+	for y = sy, h+sy-1 do
+		for x = sx, w+sx-1 do
+			local t = tilemap.get_tile("#tilemap", "world", x, y)
+			if t == 1 then
+				tilemap.set_tile("#tilemap", "world", x, y, 0)
+			end
+		end
+	end
+end
+
 function init(self)
 	populate(self)
 	parse(self)
-end
-
-function update(self, dt)
-	if data.state == data.STATE_PLAYING then
-
-	end
+	--strip(self)
 end
 
 function on_message(self, message_id, message, sender)
