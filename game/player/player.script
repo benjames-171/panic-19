@@ -94,7 +94,9 @@ end
 
 local function cond(self)
 	if data.gems == data.gemstotal then
-		msg.post("view#clear", "show")
+		if data.level < data.MAX_LEVELS then msg.post("view#clear", "show")
+		else msg.post("view#complete", "show")
+		end
 		msg.post("#sprite", "play_animation", {id = hash("static")})
 		particlefx.stop("#dust")
 	elseif data.hp <= 0 then

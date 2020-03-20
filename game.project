@@ -15,7 +15,7 @@ default_texture_mag_filter = nearest
 shared_state = 1
 
 [project]
-title = Shape Shifter
+title = PANIC-19
 
 [html5]
 splash_image = /assets/png/splash.png
