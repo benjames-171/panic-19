@@ -12,6 +12,8 @@ function init(self)
 	if data.maxlevel > 1 then gui.set_text(gui.get_node("1"), string.format("CONTINUE (%d)", data.maxlevel)) end
 	gui.set_position(self.node, vmath.vector3(data.SCR_W/2, (data.SCR_H/2), 0))
 	data.state = data.STATE_MENU
+
+	gui.set_text(gui.get_node("debug"), data.host)
 end
 
 local function startgame(self)

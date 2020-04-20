@@ -28,6 +28,8 @@ M.offset = vmath.vector3()
 M.scrollpos = vmath.vector3()
 M.playerpos = vmath.vector3()
 
+M.host = "nil"
+
 function M.world2tile(p)
 	return vmath.vector3(math.floor((p.x + M.TILE_SIZE) / M.TILE_SIZE), math.floor((p.y + M.TILE_SIZE) / M.TILE_SIZE), p.z)
 end

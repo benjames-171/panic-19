@@ -5,8 +5,11 @@ local function domaincheck()
 	local v = true
 
 	lock.add_domain("v6p9d9t4.ssl.hwcdn.net")
+	lock.add_domain("game.itch")
 
 	if not lock.verify_domain() then v = false end
+
+	if html5 then data.host = html5.run("location.hostname") end
 
 	return v
 end
